@@ -1,0 +1,18 @@
+version: "3.8"
+services:
+  wordpress:
+    image: wordpress:5.7.0-php7.4-apache
+    restart: alway s
+    env_file:
+      - ./.env
+    environment:
+      WORDPRESS_DB_HOST: db
+    volumes:
+      - ./data/wp-content:/var/www/html/wp-content
+  db:
+    image: mariadb:10
+    restart: always
+    env_file:
+      - ./.env
+    volumes:
+      - ./data/database:/var/lib/mysql

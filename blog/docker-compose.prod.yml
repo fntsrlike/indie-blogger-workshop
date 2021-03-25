@@ -1,0 +1,20 @@
+version: "3.8"
+services:
+  wordpress:
+    networks:
+      blog-your-domain:
+        aliases:
+          - blog
+      proxy-service:
+        aliases:
+          - blog-your-domain
+  db:
+    networks:
+      - blog-your-domain
+
+networks:
+  blog-your-domain:
+    name: blog-your-domain
+  proxy-service:
+    name: proxy-service
+    external: true

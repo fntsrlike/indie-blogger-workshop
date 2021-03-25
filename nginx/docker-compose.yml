@@ -1,0 +1,21 @@
+
+version: "3.8"
+services:
+  proxy:
+    restart: unless-stopped
+    image: staticfloat/nginx-certbot
+    ports:
+        - 80:80/tcp
+        - 443:443/tcp
+    environment:
+        CERTBOT_EMAIL: reg@fntsr.tw
+    volumes:
+      - ./config/conf.d:/etc/nginx/user.conf.d:ro
+      - ./config/snippets:/etc/nginx/snippets:ro
+      - ./data/letsencrypt:/etc/letsencrypt
+    networks:
+      - proxy-service
+
+networks:
+  proxy-service:
+    name: proxy-service
